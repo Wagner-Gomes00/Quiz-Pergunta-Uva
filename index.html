@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo de Energia Sustentável</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Jogo de Perguntas de Energia Sustentável</h1>
+        <p>Responda as perguntas sobre energia sustentável e veja sua pontuação no final!</p>
+
+        <div id="quiz-container">
+            <div id="question-counter">Pergunta <span id="current-question">1</span> de <span
+                    id="total-questions">10</span></div>
+
+            
+            <div class="question">
+                <p>Qual dessas é uma fonte de energia renovável?</p>
+                <button class="option" onclick="checkAnswer(true)">Energia Solar</button>
+                <button class="option" onclick="checkAnswer(false)">Carvão</button>
+                <button class="option" onclick="checkAnswer(false)">Petróleo</button>
+                <button class="option" onclick="checkAnswer(false)">Gás Natural</button>
+            </div>
+
+            <div class="question hidden">
+                <p>Qual dessas práticas ajuda a economizar energia em casa?</p>
+                <button class="option" onclick="checkAnswer(false)">Deixar a luz acesa</button>
+                <button class="option" onclick="checkAnswer(true)">Desligar aparelhos quando não usados</button>
+                <button class="option" onclick="checkAnswer(false)">Usar aquecedor no verão</button>
+                <button class="option" onclick="checkAnswer(false)">Deixar a TV ligada sem ninguém assistindo</button>
+            </div>
+
+            <div class="question hidden">
+                <p>Qual destas fontes de energia é limpa e não emite CO₂?</p>
+                <button class="option" onclick="checkAnswer(false)">Carvão</button>
+                <button class="option" onclick="checkAnswer(true)">Energia Eólica</button>
+                <button class="option" onclick="checkAnswer(false)">Óleo Diesel</button>
+                <button class="option" onclick="checkAnswer(false)">Energia Nuclear</button>
+            </div>
+
+            <div class="question hidden">
+                <p>O que é uma prática sustentável para reduzir o uso de energia em transporte?</p>
+                <button class="option" onclick="checkAnswer(true)">Usar bicicleta para trajetos curtos</button>
+                <button class="option" onclick="checkAnswer(false)">Dirigir sozinho</button>
+                <button class="option" onclick="checkAnswer(false)">Usar veículos a diesel</button>
+                <button class="option" onclick="checkAnswer(false)">Não utilizar transporte público</button>
+            </div>
+
+            <div class="question hidden">
+                <p>Qual destas práticas ajuda a reduzir a emissão de gases do efeito estufa?</p>
+                <button class="option" onclick="checkAnswer(true)">Usar painéis solares</button>
+                <button class="option" onclick="checkAnswer(false)">Utilizar mais combustível fóssil</button>
+                <button class="option" onclick="checkAnswer(false)">Queimar lixo doméstico</button>
+                <button class="option" onclick="checkAnswer(false)">Desmatar para construir</button>
+            </div>
+
+            <!-- Novas perguntas -->
+            <div class="question hidden">
+                <p>Qual fonte de energia utiliza o movimento da água para gerar eletricidade?</p>
+                <button class="option" onclick="checkAnswer(false)">Energia Solar</button>
+                <button class="option" onclick="checkAnswer(false)">Energia Nuclear</button>
+                <button class="option" onclick="checkAnswer(true)">Energia Hidrelétrica</button>
+                <button class="option" onclick="checkAnswer(false)">Biomassa</button>
+            </div>
+
+            <div class="question hidden">
+                <p>Qual é o principal benefício de usar energia solar?</p>
+                <button class="option" onclick="checkAnswer(false)">É a energia mais barata</button>
+                <button class="option" onclick="checkAnswer(true)">É renovável e limpa</button>
+                <button class="option" onclick="checkAnswer(false)">Funciona melhor à noite</button>
+                <button class="option" onclick="checkAnswer(false)">É fácil de armazenar em grandes quantidades</button>
+            </div>
+
+            <div class="question hidden">
+                <p>Qual é uma prática recomendada para reduzir o consumo de água e energia na cozinha?</p>
+                <button class="option" onclick="checkAnswer(false)">Deixar a torneira aberta enquanto lava
+                    pratos</button>
+                <button class="option" onclick="checkAnswer(false)">Usar muita água para ferver alimentos</button>
+                <button class="option" onclick="checkAnswer(false)">Deixar a geladeira aberta</button>
+                <button class="option" onclick="checkAnswer(true)">Lavar e ferver com pouca água</button>
+            </div>
+
+            <div class="question hidden">
+                <p>Qual das alternativas abaixo é uma fonte de energia renovável que pode ser usada para aquecer água em
+                    residências?</p>
+                <button class="option" onclick="checkAnswer(false)">Carvão</button>
+                <button class="option" onclick="checkAnswer(false)">Petróleo</button>
+                <button class="option" onclick="checkAnswer(true)">Energia Solar</button>
+                <button class="option" onclick="checkAnswer(false)">Energia Nuclear</button>
+            </div>
+
+            <div class="question hidden">
+                <p>Qual destes hábitos ajuda a economizar energia no uso de ar-condicionado?</p>
+                <button class="option" onclick="checkAnswer(true)">Manter portas e janelas fechadas</button>
+                <button class="option" onclick="checkAnswer(false)">Usar com portas abertas</button>
+                <button class="option" onclick="checkAnswer(false)">Manter em temperatura mínima o tempo todo</button>
+                <button class="option" onclick="checkAnswer(false)">Ligar e desligar com frequência</button>
+            </div>
+            
+
+            <p id="result"></p>
+            <button id="next-question" onclick="nextQuestion()">Próxima Pergunta</button>
+        </div>
+
+        <div id="final-score" class="hidden">
+            <h2>Parabéns! Você completou o quiz!</h2>
+            <p>Sua pontuação final é: <span id="score"></span> de <span id="total-questions">10</span></p>
+            <button onclick="restartQuiz()">Jogar Novamente</button>
+
+            
+            <div class="credits">
+                <p>Jogo criado por: <strong>Daniella Santos De Oliveira</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 0;
+        let score = 0;
+        const questions = document.querySelectorAll(".question");
+
+        document.getElementById("total-questions").innerText = questions.length;
+
+        function checkAnswer(isCorrect) {
+            if (isCorrect) {
+                document.getElementById("result").innerText = "Correto!";
+                document.getElementById("result").classList.add("correct");
+                score++;
+            } else {
+                document.getElementById("result").innerText = "Incorreto. Tente novamente.";
+                document.getElementById("result").classList.add("incorrect");
+            }
+            setTimeout(() => document.getElementById("result").classList.remove("correct", "incorrect"), 1000);
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                questions[currentQuestion].classList.add("hidden");
+                currentQuestion++;
+                document.getElementById("current-question").innerText = currentQuestion + 1;
+                questions[currentQuestion].classList.remove("hidden");
+                document.getElementById("result").innerText = "";
+            } else {
+                document.getElementById("quiz-container").classList.add("hidden");
+                document.getElementById("final-score").classList.remove("hidden");
+                document.getElementById("score").innerText = score;
+            }
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById("current-question").innerText = 1;
+            document.getElementById("quiz-container").classList.remove("hidden");
+            document.getElementById("final-score").classList.add("hidden");
+            questions.forEach(question => question.classList.add("hidden"));
+            questions[0].classList.remove("hidden");
+            document.getElementById("result").innerText = "";
+        }
+    </script>
+</body>
+
+</html>
